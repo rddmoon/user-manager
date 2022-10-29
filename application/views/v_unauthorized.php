@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-
 <html
   lang="en"
-  class="light-style layout-menu-fixed"
+  class="light-style"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="<?=base_url()?>assets/assets"
+  data-assets-path="<?=base_url()?>assets/assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -15,7 +14,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title><?=ucfirst($this->uri->segment(1,0))?><?php if($this->uri->segment(2,0) != 0){echo " | ".ucfirst($this->uri->segment(2,0));}?></title>
+    <title>Akses Ditolak</title>
 
     <meta name="description" content="" />
 
@@ -41,10 +40,9 @@
     <!-- Vendors CSS -->
     <link rel="stylesheet" href="<?=base_url()?>assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-    <link rel="stylesheet" href="<?=base_url()?>assets/assets/vendor/libs/apex-charts/apex-charts.css" />
-
     <!-- Page CSS -->
-
+    <!-- Page -->
+    <link rel="stylesheet" href="<?=base_url()?>assets/assets/vendor/css/pages/page-misc.css" />
     <!-- Helpers -->
     <script src="<?=base_url()?>assets/assets/vendor/js/helpers.js"></script>
 
@@ -52,3 +50,43 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="<?=base_url()?>assets/assets/js/config.js"></script>
   </head>
+
+  <body>
+    <!-- Content -->
+
+    <!-- Error -->
+    <div class="container-xxl container-p-y">
+      <div class="misc-wrapper">
+        <h2 class="mb-2 mx-2">Akses Ditolak :(</h2>
+        <p class="mb-4 mx-2">Oops! 😖 Anda tidak berhak mengakses halaman tersebut</p>
+        <a href="<?=base_url('dashboard')?>" class="btn btn-primary">Dashboard</a>
+        <div class="mt-3">
+
+        </div>
+      </div>
+    </div>
+    <!-- /Error -->
+
+    <!-- / Content -->
+
+    <!-- Core JS -->
+    <!-- build:js assets/vendor/js/core.js -->
+    <script src="<?=base_url()?>assets/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="<?=base_url()?>assets/assets/vendor/libs/popper/popper.js"></script>
+    <script src="<?=base_url()?>assets/assets/vendor/js/bootstrap.js"></script>
+    <script src="<?=base_url()?>assets/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+
+    <script src="<?=base_url()?>assets/assets/vendor/js/menu.js"></script>
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+
+    <!-- Main JS -->
+    <script src="<?=base_url()?>assets/assets/js/main.js"></script>
+
+    <!-- Page JS -->
+
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+  </body>
+</html>

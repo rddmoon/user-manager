@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Akses extends CI_Controller {
 	function __construct()
 	{
 			parent::__construct();
-			$this->load->model('m_dashboard');
+			$this->load->model('m_akses');
 			cek_aktif_login();
+			cek_akses_user('konfigurasi/akses');
 	}
 
 	public function index()
@@ -17,7 +18,7 @@ class Dashboard extends CI_Controller {
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
     $this->load->view('templates/navbar');
-    $this->load->view('v_dashboard');
+    $this->load->view('templates/content');
     $this->load->view('templates/footer');
 	}
 }
