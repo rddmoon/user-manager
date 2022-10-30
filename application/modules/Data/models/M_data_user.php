@@ -16,17 +16,17 @@ class M_data_user extends CI_Model {
     return $query;
   }
 
-  public function search($key)
-    {
-        $this->db->from('user');
-        $this->db->like('username', $key);
-        $this->db->or_like('nama_user', $key);
-        $this->db->or_like('email', $key);
-        $this->db->where('delete_mark', '0');
-        $this->db->order_by('nama_user');
-        $query = $this->db->get();
-        return $query;
-    }
+  // public function search($key)
+  //   {
+  //       $this->db->from('user');
+  //       $this->db->like('username', $key);
+  //       $this->db->or_like('nama_user', $key);
+  //       $this->db->or_like('email', $key);
+  //       $this->db->where('delete_mark', '0');
+  //       $this->db->order_by('nama_user');
+  //       $query = $this->db->get();
+  //       return $query;
+  //   }
 
   public function count_user()
   {

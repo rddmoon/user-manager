@@ -15,14 +15,7 @@ class Data_user extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
-
-		$search = $this->input->post('search');
-		if (!empty($search)) {
-            $content['user'] = $this->m_data_user->search($search);
-        }
-		else {
-			$content['user'] = $this->m_data_user->get();
-    }
+		$content['user'] = $this->m_data_user->get();
 
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
@@ -65,10 +58,13 @@ class Data_user extends CI_Controller {
 		{
 			$post = $this->input->post(null, TRUE);
 			$this->m_data_user->add($post);
-			
+
 			if($this->db->affected_rows() > 0)
 			{
 				echo "<script>alert('Data berhasil disimpan');</script>";
+			}
+			else{
+				echo "<script>alert('Data gagal disimpan');</script>";
 			}
 			echo "<script>window.location='".site_url('data/data_user')."';</script>";
 		}
@@ -131,6 +127,9 @@ class Data_user extends CI_Controller {
 			{
 				echo "<script>alert('Data berhasil disimpan');</script>";
 			}
+			else{
+				echo "<script>alert('Data gagal disimpan');</script>";
+			}
 			echo "<script>window.location='".site_url('data/data_user')."';</script>";
 		}
 	}
@@ -157,6 +156,9 @@ class Data_user extends CI_Controller {
 		if($this->db->affected_rows() > 0)
 		{
 			echo "<script>alert('Data berhasil dihapus');</script>";
+		}
+		else{
+			echo "<script>alert('Data gagal dihapus');</script>";
 		}
 		echo "<script>window.location='".site_url('data/data_user')."';</script>";
 	}

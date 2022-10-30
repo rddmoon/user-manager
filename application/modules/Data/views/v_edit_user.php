@@ -14,7 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Tambah User Baru</h5>
+                      <h5 class="mb-0">Edit User</h5>
                       <small class="text-muted float-end">User</small>
                     </div>
                     <div class="card-body">
