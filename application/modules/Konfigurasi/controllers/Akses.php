@@ -14,11 +14,12 @@ class Akses extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
+		$nav['ada_foto'] = cek_foto();
 		$content['user'] = $this->m_akses->list_user();
 
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
-    $this->load->view('templates/navbar');
+    $this->load->view('templates/navbar', $nav);
     $this->load->view('v_akses', $content);
     $this->load->view('templates/footer');
 
@@ -30,13 +31,13 @@ class Akses extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
-		// $content['list_akses'] = $this->m_akses->list_akses($id);
+		$nav['ada_foto'] = cek_foto();
 		$content['user'] = $this->m_akses->get_user($id)->row();
 		$content['list_menu'] = $this->m_akses->list_menu($id);
 
 		$this->load->view('templates/header');
 		$this->load->view('templates/side_bar', $data);
-		$this->load->view('templates/navbar');
+		$this->load->view('templates/navbar', $nav);
 		$this->load->view('v_edit_akses', $content);
 		$this->load->view('templates/footer');
 	}

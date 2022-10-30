@@ -9,6 +9,16 @@ if (!function_exists('cek_aktif_login')){
   }
 }
 
+function cek_foto(){
+  $ci = get_instance();
+  $ada_foto = $ci->db->select('*')
+  ->from('user_foto')
+  ->where(['id_user' => $ci->session->id_user, 'delete_mark' => '0'])
+  ->get()->row();
+
+    return $ada_foto->foto;
+}
+
 function menu_lv1(){
   $ci = get_instance();
   $menu_lv1 = $ci->db->select('m.*')

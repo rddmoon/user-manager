@@ -15,11 +15,12 @@ class Data_user extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
+		$nav['ada_foto'] = cek_foto();
 		$content['user'] = $this->m_data_user->get();
 
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
-    $this->load->view('templates/navbar');
+    $this->load->view('templates/navbar', $nav);
     $this->load->view('v_data_user', $content);
     $this->load->view('templates/footer');
 
@@ -50,10 +51,11 @@ class Data_user extends CI_Controller {
 		{
 			$menu['menu_lv1'] = menu_lv1();
 			$menu['menu_lv2'] = menu_lv2();
+			$nav['ada_foto'] = cek_foto();
 
 	    $this->load->view('templates/header');
 	    $this->load->view('templates/side_bar', $menu);
-	    $this->load->view('templates/navbar');
+	    $this->load->view('templates/navbar', $nav);
 	    $this->load->view('v_add_user');
 	    $this->load->view('templates/footer');
 		}
@@ -113,10 +115,11 @@ class Data_user extends CI_Controller {
 				$data['user'] = $query->row();
 				$menu['menu_lv1'] = menu_lv1();
 				$menu['menu_lv2'] = menu_lv2();
+				$nav['ada_foto'] = cek_foto();
 
 		    $this->load->view('templates/header');
 		    $this->load->view('templates/side_bar', $menu);
-		    $this->load->view('templates/navbar');
+		    $this->load->view('templates/navbar', $nav);
 		    $this->load->view('v_edit_user', $data);
 		    $this->load->view('templates/footer');
 			}

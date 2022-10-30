@@ -38,7 +38,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="<?=base_url()?>assets/assets/img/avatars/no_profile.png" alt class="w-px-40 h-auto rounded-circle" />
+              <?php if(!$ada_foto){ ?>
+                <img src="<?=base_url()?>assets/assets/img/avatars/no_profile.png" alt class="w-px-40 h-auto rounded-circle" />
+              <?php } ?>
+              <?php if($ada_foto){ ?>
+                <img src="<?=base_url()?>assets/assets/img/uploads/<?=$ada_foto?>" alt class="w-px-40 h-auto rounded-circle" />
+              <?php } ?>
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -47,7 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="<?=base_url()?>assets/assets/img/avatars/no_profile.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <?php if(!$ada_foto){ ?>
+                        <img src="<?=base_url()?>assets/assets/img/avatars/no_profile.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <?php } ?>
+                      <?php if($ada_foto){ ?>
+                        <img src="<?=base_url()?>assets/assets/img/uploads/<?=$ada_foto?>" alt class="w-px-40 h-auto rounded-circle" />
+                      <?php } ?>
                     </div>
                   </div>
                   <div class="flex-grow-1">
@@ -61,9 +71,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="#">
+              <a class="dropdown-item" href="<?=site_url('profil')?>">
                 <i class="bx bx-user me-2"></i>
-                <span class="align-middle">My Profile</span>
+                <span class="align-middle">Profil Saya</span>
               </a>
             </li>
             <li>

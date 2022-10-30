@@ -14,11 +14,12 @@ class Aktivitas_user extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
+		$nav['ada_foto'] = cek_foto();
 		$content['user'] = $this->m_aktivitas_user->get_user();
 
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
-    $this->load->view('templates/navbar');
+    $this->load->view('templates/navbar', $nav);
     $this->load->view('v_aktivitas_user', $content);
     $this->load->view('templates/footer');
 
@@ -30,12 +31,13 @@ class Aktivitas_user extends CI_Controller {
 	{
 		$data['menu_lv1'] = menu_lv1();
 		$data['menu_lv2'] = menu_lv2();
+		$nav['ada_foto'] = cek_foto();
 		$content['aktivitas'] = $this->m_aktivitas_user->get($id);
 		$content['user'] = $this->m_aktivitas_user->get_user($id)->row();
 
     $this->load->view('templates/header');
     $this->load->view('templates/side_bar', $data);
-    $this->load->view('templates/navbar');
+    $this->load->view('templates/navbar', $nav);
     $this->load->view('v_aktivitas_detail', $content);
     $this->load->view('templates/footer');
 	}
