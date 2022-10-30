@@ -7,7 +7,7 @@ class Data_user extends CI_Controller {
 			parent::__construct();
 			$this->load->model('m_data_user');
 			cek_aktif_login();
-			cek_akses_user('data/data_user');
+			cek_akses_user($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
 			$this->load->library('form_validation');
 	}
 
@@ -22,6 +22,9 @@ class Data_user extends CI_Controller {
     $this->load->view('templates/navbar');
     $this->load->view('v_data_user', $content);
     $this->load->view('templates/footer');
+
+		$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+		activity_read('berhasil', $id_m->menu_id, $id_m->menu_name);
 	}
 
 	public function add()
@@ -61,9 +64,13 @@ class Data_user extends CI_Controller {
 
 			if($this->db->affected_rows() > 0)
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_create('berhasil', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data berhasil disimpan');</script>";
 			}
 			else{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_create('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data gagal disimpan');</script>";
 			}
 			echo "<script>window.location='".site_url('data/data_user')."';</script>";
@@ -115,6 +122,8 @@ class Data_user extends CI_Controller {
 			}
 			else
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data tidak ditemukan.');";
 				echo "window.location='".site_url('data/data_user')."';</script>";
 			}
@@ -125,9 +134,13 @@ class Data_user extends CI_Controller {
 			$this->m_data_user->edit($post);
 			if($this->db->affected_rows() > 0)
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('berhasil', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data berhasil disimpan');</script>";
 			}
 			else{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data gagal disimpan');</script>";
 			}
 			echo "<script>window.location='".site_url('data/data_user')."';</script>";
@@ -155,9 +168,13 @@ class Data_user extends CI_Controller {
 
 		if($this->db->affected_rows() > 0)
 		{
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_delete('berhasil', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data berhasil dihapus');</script>";
 		}
 		else{
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_delete('gagal', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data gagal dihapus');</script>";
 		}
 		echo "<script>window.location='".site_url('data/data_user')."';</script>";

@@ -7,7 +7,7 @@ class Sistem_menu extends CI_Controller {
 			parent::__construct();
 			$this->load->model('m_sistem_menu');
 			cek_aktif_login();
-			cek_akses_user('konfigurasi/sistem_menu');
+			cek_akses_user($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
 			$this->load->library('form_validation');
 	}
 
@@ -22,6 +22,9 @@ class Sistem_menu extends CI_Controller {
     $this->load->view('templates/navbar');
     $this->load->view('v_sistem_menu', $content);
     $this->load->view('templates/footer');
+
+		$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+		activity_read('berhasil', $id_m->menu_id, $id_m->menu_name);
 	}
 
 	public function add()
@@ -63,9 +66,13 @@ class Sistem_menu extends CI_Controller {
 
 			if($this->db->affected_rows() > 0)
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_create('berhasil', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data berhasil disimpan');</script>";
 			}
 			else{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_create('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data gagal disimpan');</script>";
 			}
 			echo "<script>window.location='".site_url('konfigurasi/sistem_menu')."';</script>";
@@ -101,6 +108,8 @@ class Sistem_menu extends CI_Controller {
 			}
 			else
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data tidak ditemukan.');";
 				echo "window.location='".site_url('konfigurasi/sistem_menu')."';</script>";
 			}
@@ -108,22 +117,27 @@ class Sistem_menu extends CI_Controller {
 		else
 		{
 			$post = $this->input->post(null, TRUE);
-			if($post['parent_id']){
+			if($post['parent_id'] != ''){
 				$arr_id = str_split($post['parent_id']);
-				$child = $this->m_sistem_menu->count_childmenu($post['parent_id']);
+				$child = $this->m_sistem_menu->count_childmenu($post['parent_id'], $post['menu_id']);
 				$post['menu_id2'] = 'm'.strval($arr_id[1]).strval($child+1);
 			}
 			else{
-				$count = $this->m_sistem_menu->count_parents();
+				$count = $this->m_sistem_menu->count_parents($post['menu_id']);
 				$post['menu_id2'] = 'm'.strval($count+1).'0';
 			}
 
-			$this->m_sistem_menu->edit($post);
-			if($this->db->affected_rows() > 0)
+			$stat = $this->m_sistem_menu->edit($post);
+			if($stat == 'success')
 			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('berhasil', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data berhasil disimpan');</script>";
 			}
-			else{
+			else
+			{
+				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+				activity_update('gagal', $id_m->menu_id, $id_m->menu_name);
 				echo "<script>alert('Data gagal disimpan');</script>";
 			}
 			echo "<script>window.location='".site_url('konfigurasi/sistem_menu')."';</script>";
@@ -151,9 +165,13 @@ class Sistem_menu extends CI_Controller {
 
 		if($this->db->affected_rows() > 0)
 		{
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_delete('berhasil', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data berhasil dihapus');</script>";
 		}
 		else{
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_delete('gagal', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data gagal dihapus');</script>";
 		}
 		echo "<script>window.location='".site_url('konfigurasi/sistem_menu')."';</script>";

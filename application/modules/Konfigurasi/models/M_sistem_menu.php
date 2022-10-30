@@ -44,20 +44,28 @@ class M_sistem_menu extends CI_Model {
     return $query;
   }
 
-  public function count_parents()
+  public function count_parents($id_m = null)
   {
     $this->db->from('menu');
     $this->db->where('parent_id', '');
     $this->db->where('delete_mark', '0');
+    if($id_m != null)
+    {
+      $this->db->where('menu_id !=', $id_m);
+    }
     $query = $this->db->count_all_results();
     return $query;
   }
 
-  public function count_childmenu($id)
+  public function count_childmenu($id, $id_m = null)
   {
     $this->db->from('menu');
     $this->db->where('parent_id', $id);
     $this->db->where('delete_mark', '0');
+    if($id_m != null)
+    {
+      $this->db->where('menu_id !=', $id_m);
+    }
     $query = $this->db->count_all_results();
     return $query;
   }
@@ -103,11 +111,13 @@ class M_sistem_menu extends CI_Model {
     $this->db->where('menu_id', $post['menu_id']);
     $query = $this->db->get();
 
-    foreach ($query as $key => $a) {
+    foreach ($query->result() as $key => $a) {
       $params2['menu_id'] = $post['menu_id2'];
       $this->db->where('menu_id', $post['menu_id']);
-      $this->db->update('menu_user', $params2);  
+      $this->db->update('menu_user', $params2);
     }
+
+    return 'success';
   }
 
   public function delete($id)
@@ -115,7 +125,7 @@ class M_sistem_menu extends CI_Model {
     $params['delete_mark'] = '1';
     $params['update_by'] = $this->session->id_user;
     $params['update_date'] = date('Y-m-d');
-    $this->db->where('menu_id', $post['menu_id']);
+    $this->db->where('menu_id', $id);
     $this->db->update('menu', $params);
 	}
 }

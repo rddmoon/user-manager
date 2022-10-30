@@ -45,3 +45,57 @@ if (!function_exists('cek_akses_user')){
     }
   }
 }
+
+function menu_now($link){
+  $ci = get_instance();
+  $query = $ci->db->select('*')
+  ->from('menu')
+  ->where('menu_link', $link)
+  ->get()->row();
+
+  return $query;
+}
+
+function activity_create($status, $menu_id, $menu_name){
+  $ci = get_instance();
+  $params['id_user'] = $ci->session->id_user;
+  $params['deskripsi'] = 'Create '.$status.' pada '.$menu_name;
+  $params['status'] = $status;
+  $params['menu_id'] = $menu_id;
+  $params['delete_mark'] = '0';
+  $params['create_by'] = $ci->session->id_user;
+  $ci->db->insert('user_activity', $params);
+}
+
+function activity_update($status, $menu_id, $menu_name){
+  $ci = get_instance();
+  $params['id_user'] = $ci->session->id_user;
+  $params['deskripsi'] = 'Update '.$status.' pada '.$menu_name;
+  $params['status'] = $status;
+  $params['menu_id'] = $menu_id;
+  $params['delete_mark'] = '0';
+  $params['create_by'] = $ci->session->id_user;
+  $ci->db->insert('user_activity', $params);
+}
+
+function activity_read($status, $menu_id, $menu_name){
+  $ci = get_instance();
+  $params['id_user'] = $ci->session->id_user;
+  $params['deskripsi'] = 'Read data '.$status.' pada '.$menu_name;
+  $params['status'] = $status;
+  $params['menu_id'] = $menu_id;
+  $params['delete_mark'] = '0';
+  $params['create_by'] = $ci->session->id_user;
+  $ci->db->insert('user_activity', $params);
+}
+
+function activity_delete($status, $menu_id, $menu_name){
+  $ci = get_instance();
+  $params['id_user'] = $ci->session->id_user;
+  $params['deskripsi'] = 'Delete '.$status.' pada '.$menu_name;
+  $params['status'] = $status;
+  $params['menu_id'] = $menu_id;
+  $params['delete_mark'] = '0';
+  $params['create_by'] = $ci->session->id_user;
+  $ci->db->insert('user_activity', $params);
+}

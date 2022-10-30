@@ -7,7 +7,7 @@ class Akses extends CI_Controller {
 			parent::__construct();
 			$this->load->model('m_akses');
 			cek_aktif_login();
-			cek_akses_user('konfigurasi/akses');
+			cek_akses_user($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
 	}
 
 	public function index()
@@ -21,6 +21,9 @@ class Akses extends CI_Controller {
     $this->load->view('templates/navbar');
     $this->load->view('v_akses', $content);
     $this->load->view('templates/footer');
+
+		$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+		activity_read('berhasil', $id_m->menu_id, $id_m->menu_name);
 	}
 
 	public function edit($id)
@@ -44,9 +47,13 @@ class Akses extends CI_Controller {
 
 		if($this->db->affected_rows() > 0)
 		{
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_update('berhasil', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data berhasil disimpan');</script>";
 		}
 		else {
+			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
+			activity_update('gagal', $id_m->menu_id, $id_m->menu_name);
 			echo "<script>alert('Data gagal disimpan');</script>";
 		}
 		echo "<script>window.location='".site_url('konfigurasi/akses')."';</script>";
