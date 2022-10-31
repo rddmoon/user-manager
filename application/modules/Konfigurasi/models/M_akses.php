@@ -32,32 +32,6 @@ class M_akses extends CI_Model {
 
   public function list_menu($id)
   {
-    $this->db->select('a.menu_id AS menu_id, a.id_level AS id_level, a.menu_name AS menu_name,
-    a.menu_link AS menu_link, a.menu_icon AS menu_icon, a.parent_id AS parent_id,
-    b.menu_name AS parent_name');
-    $this->db->from('menu a');
-    $this->db->join('menu b', 'a.parent_id=b.menu_id', 'left');
-    $this->db->where('a.delete_mark', '0');
-    $this->db->order_by('a.menu_id', 'asc');
-    $query = $this->db->get();
-
-    foreach ($query->result() as $key => $m) {
-      $ada = false;
-      foreach ($this->list_akses()->result() as $key => $a) {
-        if($m->menu_id == $a->menu_id){
-          $ada = true;
-        }
-      }
-      if(!$ada){
-        $params['id_user'] = $id;
-        $params['menu_id'] = $m->menu_id;
-        $params['create_by'] = $this->session->id_user;
-        $params['delete_mark'] = '1';
-        $params['update_by'] = $this->session->id_user;
-        $this->db->insert('menu_user', $params);
-      }
-    }
-
     return $this->db->select('menu_user.*, menu.id_level,
     menu.menu_name, menu.parent_id')
     ->from('menu')
@@ -66,6 +40,8 @@ class M_akses extends CI_Model {
     ->where('menu_user.id_user', $id)
     ->get();
   }
+
+
 
   public function simpan_akses()
   {
@@ -78,7 +54,11 @@ class M_akses extends CI_Model {
       ];
     $no++;
     }
-    $this->db->where('id_user', $this->input->post('id_user'));
-    $this->db->update_batch('menu_user', $data, 'no_seting');
+    if($data != null){
+      $this->db->where('id_user', $this->input->post('id_user'));
+      $this->db->update_batch('menu_user', $data, 'no_seting');
+    }
+
+    return true;
   }
 }

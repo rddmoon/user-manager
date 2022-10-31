@@ -48,7 +48,7 @@ class M_sistem_menu extends CI_Model {
   {
     $this->db->from('menu');
     $this->db->where('parent_id', '');
-    $this->db->where('delete_mark', '0');
+    // $this->db->where('delete_mark', '0');
     if($id_m != null)
     {
       $this->db->where('menu_id !=', $id_m);
@@ -61,7 +61,7 @@ class M_sistem_menu extends CI_Model {
   {
     $this->db->from('menu');
     $this->db->where('parent_id', $id);
-    $this->db->where('delete_mark', '0');
+    // $this->db->where('delete_mark', '0');
     if($id_m != null)
     {
       $this->db->where('menu_id !=', $id_m);
@@ -92,6 +92,22 @@ class M_sistem_menu extends CI_Model {
     $params['update_by'] = $this->session->id_user;
     $params['update_date'] = date('Y-m-d');
     $this->db->insert('menu', $params);
+
+    $this->db->from('user');
+    $query = $this->db->get();
+
+    foreach ($query->result() as $key => $u) {
+      $data[] = [
+        'id_user' => $u->id_user,
+        'menu_id' => $post['menu_id'],
+        'create_by' => $this->session->id_user,
+        'delete_mark' => '1',
+        'update_by' => $this->session->id_user
+      ];
+    }
+    if(isset($data)){
+      $this->db->insert_batch('menu_user', $data);
+    }
   }
 
   public function edit($post)

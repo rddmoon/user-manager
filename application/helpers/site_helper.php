@@ -109,3 +109,21 @@ function activity_delete($status, $menu_id, $menu_name){
   $params['create_by'] = $ci->session->id_user;
   $ci->db->insert('user_activity', $params);
 }
+
+// function insert_error($severity, $param, $message, $filepath, $line){
+//   $ci = get_instance();
+//   $filename = explode('\\', $filepath);
+//   $params['id_user'] = $ci->session->id_user;
+//   $params['error_date'] = date('d');
+//   $params['modules'] = $filename[5];
+//   $params['controller'] = $filename[7];
+//   $params['function'] = '';
+//   $params['error_line'] = $line;
+//   $params['error_message'] = $message;
+//   $params['status'] = $severity;
+//   $params['param'] = $param;
+//   $params['delete_mark'] = '0';
+//   $params['create_by'] = $ci->session->id_user;
+//   $params['create_by'] = $ci->session->id_user;
+//   $ci->db->insert('i_error_application', $params);
+// }

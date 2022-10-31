@@ -44,9 +44,9 @@ class Akses extends CI_Controller {
 
 	public function simpan()
 	{
-		$this->m_akses->simpan_akses();
+		$stat = $this->m_akses->simpan_akses();
 
-		if($this->db->affected_rows() > 0)
+		if($stat)
 		{
 			$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
 			activity_update('berhasil', $id_m->menu_id, $id_m->menu_name);

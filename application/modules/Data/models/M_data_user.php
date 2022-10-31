@@ -54,6 +54,30 @@ class M_data_user extends CI_Model {
     $params['create_by'] = $this->session->id_user;
     $params['update_by'] = $this->session->id_user;
     $this->db->insert('user', $params);
+
+    $this->db->select('a.menu_id AS menu_id, a.id_level AS id_level, a.menu_name AS menu_name,
+    a.menu_link AS menu_link, a.menu_icon AS menu_icon, a.parent_id AS parent_id,
+    b.menu_name AS parent_name');
+    $this->db->from('menu a');
+    $this->db->join('menu b', 'a.parent_id=b.menu_id', 'left');
+    $this->db->where('a.delete_mark', '0');
+    $this->db->order_by('a.menu_id', 'asc');
+    $query = $this->db->get();
+
+    foreach ($query->result() as $key => $m) {
+      $data[] = [
+        'id_user' => $id,
+        'menu_id' => $m->menu_id,
+        'create_by' => $this->session->id_user,
+        'delete_mark' => '1',
+        'update_by' => $this->session->id_user
+      ];
+    }
+    if(isset($data)){
+      $this->db->insert_batch('menu_user', $data);
+    }
+
+    return true;
   }
 
   public function edit($post)

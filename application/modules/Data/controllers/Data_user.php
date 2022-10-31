@@ -62,9 +62,9 @@ class Data_user extends CI_Controller {
 		else
 		{
 			$post = $this->input->post(null, TRUE);
-			$this->m_data_user->add($post);
+			$stat = $this->m_data_user->add($post);
 
-			if($this->db->affected_rows() > 0)
+			if($stat)
 			{
 				$id_m = menu_now($this->uri->segment(1,0).'/'.$this->uri->segment(2,0));
 				activity_create('berhasil', $id_m->menu_id, $id_m->menu_name);
